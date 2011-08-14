@@ -3,9 +3,51 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
 import facebook
-from viz.models import UserProfile
+from viz.models import UserProfile, Friend, DataPoint
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+
+
+def create_data_point(user):
+    pass
+
+def find_or_add_friend(friend_dict):
+    try:
+        friend = Friend.objects.get(fbid=friend_dict['id'])
+    except Friend.DoesNotExist:
+        friend = Friend(fbid=friend_dict['id'], name=friend_dict['name'])
+        friend.save()
+    return friend
+
+
+def friends_lookup(user):
+    up = user.get_profile()
+    graph = facebook.GraphAPI(up.access_token)
+    friends = graph.get_connections("me", "friends")['data']
+    
+    friend_objects = []
+    for friend in friends:
+        friend_objects.append(find_or_add_friend(friend))
+    
+    return friend_objects
+    
+
+def friends(request):
+    """
+    Display the users friends.
+    """
+    user = request.user
+    friends = friends_lookup(user)
+    # up = user.get_profile()
+    # graph = facebook.GraphAPI(up.access_token)
+    # friends = graph.get_connections("me", "friends")['data']
+    return render_to_response("friends.html", {
+            "friends": friends,
+            "user": user
+        },
+        context_instance=RequestContext(request)
+    )
+
 
 def index(request):
     cookie = facebook.get_user_from_cookie(request.COOKIES, 

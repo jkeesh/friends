@@ -5,6 +5,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     (r'^admin/', include(admin.site.urls)),
+    (r'^friends/?$', 'viz.views.friends'),
     (r'', 'viz.views.index'),
     # Example:
     # (r'^friends/', include('friends.foo.urls')),
