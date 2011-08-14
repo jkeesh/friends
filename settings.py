@@ -7,6 +7,9 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
 
+FACEBOOK_APP_ID     =   "118935638204557" 
+FACEBOOK_APP_SECRET =   "2aaf52f0e693c5e8ebd2425734f41767"
+
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
