@@ -22,7 +22,7 @@ def diff_data_points(old, new):
             
     for friend in new_friends:
         if friend not in old_friends:
-            gained.apped(friend)
+            gained.append(friend)
             
     print "Lost:"
     print lost

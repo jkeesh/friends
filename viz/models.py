@@ -8,6 +8,9 @@ class Friend(models.Model):
     name        =   models.CharField(max_length=100, default='')
     fbid          =   models.BigIntegerField(default=0)
     
+    def __unicode__(self):
+        return "%s" % self.name
+    
 class DataPoint(models.Model):
     friends     =   models.ManyToManyField(Friend)
     created_at  =   models.DateTimeField(auto_now_add=True)
