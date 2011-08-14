@@ -1,7 +1,12 @@
 # Django settings for friends project.
+import os, sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, PROJECT_ROOT)
+
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),

@@ -6,7 +6,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
 
-    (r'', viz.login),
+    (r'', 'viz.views.login'),
     # Example:
     # (r'^friends/', include('friends.foo.urls')),
 
