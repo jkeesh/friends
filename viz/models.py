@@ -15,3 +15,7 @@ class DataPoint(models.Model):
 class UserProfile(models.Model):
     data_points =   models.ManyToManyField(DataPoint)
     user        =   models.ForeignKey(User, unique=True)
+    id          =   models.PositiveIntegerField(default=0, primary_key=True)
+    
+    def __unicode__(self):
+        return "%s" % self.user
