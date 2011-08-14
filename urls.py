@@ -5,6 +5,8 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+
+    (r'', viz.login),
     # Example:
     # (r'^friends/', include('friends.foo.urls')),
 
