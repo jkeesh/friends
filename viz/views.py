@@ -8,8 +8,36 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 
 
+
+def diff_data_points(old, new):
+    old_friends = old.friends.all()
+    new_friends = new.friends.all()
+    
+    lost = []
+    gained = []
+    
+    for friend in old_friends:
+        if friend not in new_friends:
+            lost.append(friend)
+            
+    for friend in new_friends:
+        if friend not in old_friends:
+            gained.apped(friend)
+            
+    print "Lost:"
+    print lost
+    
+    print "Gained"
+    print gained
+
+
 def create_data_point(user):
-    pass
+    friends = friends_lookup(user)
+    data_point = DataPoint()
+    data_point.save()
+    ## Expand a list into arguments with *list
+    ## http://stackoverflow.com/questions/4959499/how-to-add-multiple-objects-to-manytomany-relationship-at-once-in-django
+    data_point.friends.add(*friends)
 
 def find_or_add_friend(friend_dict):
     try:
