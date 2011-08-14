@@ -12,6 +12,7 @@ def index(request):
                     settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
                     
     message = 'Ok.'
+    user = None
     if cookie:
         print 'hi'
         print cookie
@@ -33,44 +34,14 @@ def index(request):
                 user.last_name = profile['last_name']
                 user.save()
             
-            up = UserProfile(user=user, id=cookie['uid'])
+            up = UserProfile(user=user, id=cookie['uid'], access_token=cookie['access_token'])
             up.save()
         
         user = authenticate(username=user.username, password=user.username)
-        print 'authenticating..'
         if user is not None:
-            print "After auth"
-            print user
             login(request, user)
         else:
             print "user was none"
-        print up
-        print user
-            
-            #print "No profile for this user"
-            #user = User(first_name=fb_user['first_name'], last_name=fb_user['last_name'], email=fb_user['email'])
-            #social_user.username = str(uuid.uuid4())[:30]
-            #social_user.save()
-            
-            ## Make a User and UserProfile
-
-            
-            # # Store a local instance of the user data so we don't need
-            # # a round-trip to Facebook on every request
-            # user = User.get_by_key_name(cookie["uid"])
-            # if not user:
-            #     graph = facebook.GraphAPI(cookie["access_token"])
-            #     profile = graph.get_object("me")
-            #     user = User(key_name=str(profile["id"]),
-            #                 id=str(profile["id"]),
-            #                 name=profile["name"],
-            #                 profile_url=profile["link"],
-            #                 access_token=cookie["access_token"])
-            #     user.put()
-            # elif user.access_token != cookie["access_token"]:
-            #     user.access_token = cookie["access_token"]
-            #     user.put()
-            # self._current_user = user
     else:
         message = "Error with the user"
     

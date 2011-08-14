@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Friend(models.Model):
-    name        =   models.CharField(max_length=100, default=0)
+    name        =   models.CharField(max_length=100, default='')
     id          =   models.PositiveIntegerField(default=0, primary_key=True)
     
 class DataPoint(models.Model):
@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     data_points =   models.ManyToManyField(DataPoint)
     user        =   models.ForeignKey(User, unique=True)
     id          =   models.PositiveIntegerField(default=0, primary_key=True)
+    access_token=   models.CharField(max_length=200, default='')
     
     def __unicode__(self):
         return "%s" % self.user
