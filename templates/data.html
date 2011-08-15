@@ -3,6 +3,32 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Friends</title>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function(){
+		
+		// the seleected links
+		var first = null;
+		var second = null;
+		
+		var links = $('a[data-select]');
+		links.click(function(){
+			$(this).css('font-weight','bold');
+			if(!first){
+				first = $(this);
+			}else if(!second){
+				second = $(this);
+			}else{
+				$(first).css('font-weight', 'normal');
+				first = second;
+				second = $(this);
+			}
+		});
+		
+		console.log(links);
+	});
+	</script>
   </head>
   <body>
 	<h1>Data Point</h1>
@@ -10,6 +36,7 @@
 	{% load data_tags %}
 	{% for data in dp %}
 		<div>
+			<a href="#" data-id="{{data.id}}" data-select="true">select</a>
 			<span>#{{data.id}}</span>
 			<a href="/data_point/{{data.id}}">{{ data.created_at }}</a>
 
