@@ -26,12 +26,23 @@
 			}
 		});
 		
-		console.log(links);
+		$('a[data-diff]').click(function(){
+			if(first && second){
+				var d1 = $(first).attr('data-id');
+				var d2 = $(second).attr('data-id');
+				window.location.href = '/diff?d1='+d1+"&d2="+d2;
+			}else{
+				alert('You need to select two points.');
+			}
+		});
 	});
 	</script>
   </head>
   <body>
 	<h1>Data Point</h1>
+	
+	<h2>Select two data points and click diff to diff them</h2>
+	<h2><a href="#" data-diff>Diff!</a></h2>
 
 	{% load data_tags %}
 	{% for data in dp %}
