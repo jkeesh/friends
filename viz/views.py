@@ -24,6 +24,9 @@ def diff(request):
         print d2
         d1 = DataPoint.objects.get(pk=d1)
         d2 = DataPoint.objects.get(pk=d2)
+        
+        if d1.user != d2.user:
+            return redirect('/')
     
         lost, gained = diff_data_points(d1, d2)
         print lost
@@ -89,6 +92,8 @@ def data_point_display(request, id):
     ## Display friends for a single data point
     user = request.user
     dp = DataPoint.objects.get(pk=id)
+    if(dp.user != request.user):
+        return redirect('/');
     friend_list = dp.friend_list.split(',')
     friends = Friend.objects.filter(id__in=friend_list)
     
