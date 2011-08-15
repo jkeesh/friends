@@ -7,6 +7,8 @@ from viz.models import UserProfile, Friend, DataPoint
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
+import urllib2
+from django.utils import simplejson 
 
 
 def data(request):
@@ -29,6 +31,25 @@ def friends(request):
     """
     latest = DataPoint.objects.all().order_by('-created_at')[0]
     return redirect('/data_point/%d' % latest.id)
+    
+def friend(request, id):
+    ## Individual friend display
+    friend = Friend.objects.get(pk=id)
+    
+    ## Check status
+    url = urllib2.urlopen('http://graph.facebook.com/%d' % friend.fbid)
+    data = url.read()
+    result = simplejson.loads(data)
+    if not result: ## Deactivated
+        friend.active = False
+        friend.save()
+    
+    return render_to_response("friend.html", {
+            "friend": friend
+        },
+        context_instance=RequestContext(request)
+    )
+    
     
 def data_point_display(request, id):
     ## Display friends for a single data point

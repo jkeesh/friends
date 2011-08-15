@@ -11,7 +11,7 @@
 		{% endif %}
 	
 		{% for friend in friends %}
-			<div>{{friend.id}}. {{ friend.name }}</div>
+			<div><a href="/friend/{{friend.id}}">{{friend.id}}. {{ friend.name }}</a></div>
 		{% endfor %}
 
   </body>

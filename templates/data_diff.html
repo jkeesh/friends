@@ -1,3 +1,16 @@
 {{ prev.id }}
-{% if lost %}<span>Lost: {{ lost }}</span>{% endif %}
-{% if gained %}<span>Gained: {{ gained}}</span>{% endif %}
+{% if lost %}
+<span>Lost: 
+{% for friend in lost %}
+<a href="/friend/{{friend.id}}">{{friend}}</a>
+{% endfor %}
+</span>
+{% endif %}
+
+{% if gained %}
+<span>Gained: 
+{% for friend in gained %}
+<a href="/friend/{{friend.id}}">{{friend}}</a>
+{% endfor %}
+</span>
+{% endif %}

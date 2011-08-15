@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 
 class Friend(models.Model):
     name        =   models.CharField(max_length=100, default='')
-    fbid          =   models.BigIntegerField(default=0)
+    fbid        =   models.BigIntegerField(default=0)
+    active      =   models.BooleanField(default=True)
     
     def __unicode__(self):
         return "%s" % self.name

@@ -5,19 +5,15 @@
     <title>Friends</title>
   </head>
   <body>
-	<h1>Data Point</h1>
-
-	{% load data_tags %}
-	{% for data in dp %}
-		<div>
-			<span>#{{data.id}}</span>
-			<a href="/data_point/{{data.id}}">{{ data.created_at }}</a>
-
-			{% if not forloop.last %}
-			<span>Diff {% previous_diff data %}</span>
-			{% endif %}
-		<div>
-	{% endfor %}
+	
+	<div>
+		<img src="http://graph.facebook.com/{{friend.fbid}}/picture" />
+		Friend: {{friend}}
+	</div>
+	
+	<div>id: {{friend.id}}</div>
+	<div>fbid: {{friend.fbid}}</div>
+	<div>active: {{friend.active}}</div>
 
   </body>
 </html>

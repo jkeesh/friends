@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     (r'^friends/?$', 'viz.views.friends'),
     (r'^data_point/(?P<id>\d+)/?$', 'viz.views.data_point_display'),
     (r'^data/?$', 'viz.views.data'),
+    (r'^friend/(?P<id>\d+)/?$', 'viz.views.friend'),
     (r'', 'viz.views.index'),
 )
