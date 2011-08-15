@@ -45,7 +45,4 @@ def create_data_point(user):
     friends = friends_lookup(user)
     data_point = DataPoint(user=user)
     data_point.save()
-    ## Expand a list into arguments with *list
-    ## http://stackoverflow.com/questions/4959499/how-to-add-multiple-objects-to-manytomany-relationship-at-once-in-django
-    data_point.friends.add(*friends)
     make_friend_list(data_point, friends)
