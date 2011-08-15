@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Friends</title>
+  </head>
+  <body>
+		<h1>{{user}}</h1>
+	
+		{% for friend in friends %}
+			<div>{{friend.id}}. {{ friend.name }}</div>
+		{% endfor %}
+
+  </body>
+</html>
