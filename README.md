@@ -6,7 +6,7 @@
 ### Create Database
 
     $ mysql
-    mysql> create databse friends character set utf8;
+    mysql> create database friends character set utf8;
 
 
 ### Sync Database
@@ -28,10 +28,12 @@ Don't create a superuser account.
 Set up a daily cronjob to update the list. Insert your project directory where I have 
 cd /Users/jkeesh/Dropbox/Documents/CS/projects/friends
 
+Edit your users crontab.
+
     crontab -e
 
-    			       	
-	
+Set the path and code to run.
+
     PATH=<make sure your path includes your python and django installations>
     01 7   *  *    *    cd <your project directory> && python /Users/jkeesh/Dropbox/Documents/CS/projects/friends/manage.py create_data_point
 
