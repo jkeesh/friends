@@ -2,7 +2,7 @@ import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 from viz.models import DataPoint, Friend
-from viz.views import diff_data_points
+from viz.data import diff_data_points
 
 
 

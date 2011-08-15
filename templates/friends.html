@@ -6,6 +6,9 @@
   </head>
   <body>
 		<h1>{{user}}</h1>
+		{% if dp %}
+		<h2>#{{dp.id}} - {{dp.created_at}}</h2>
+		{% endif %}
 	
 		{% for friend in friends %}
 			<div>{{friend.id}}. {{ friend.name }}</div>

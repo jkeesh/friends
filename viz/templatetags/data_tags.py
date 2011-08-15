@@ -2,7 +2,7 @@ from django import template
 register = template.Library()
 from viz.models import DataPoint
 
-from viz.data_points import diff_data_points
+from viz.data import diff_data_points
 
 @register.inclusion_tag('data_diff.html')
 def previous_diff(data_point):

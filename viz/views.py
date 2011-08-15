@@ -6,7 +6,7 @@ import facebook
 from viz.models import UserProfile, Friend, DataPoint
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-
+from django.shortcuts import redirect
 
 
 def data(request):
@@ -23,48 +23,22 @@ def data(request):
         context_instance=RequestContext(request)
     )
 
-
-def find_or_add_friend(friend_dict):
-    try:
-        friend = Friend.objects.get(fbid=friend_dict['id'])
-    except Friend.DoesNotExist:
-        friend = Friend(fbid=friend_dict['id'], name=friend_dict['name'])
-        friend.save()
-    return friend
-
-
-def friends_lookup(user):
-    up = user.get_profile()
-    graph = facebook.GraphAPI(up.access_token)
-    friends = graph.get_connections("me", "friends")['data']
-    
-    friend_objects = []
-    for friend in friends:
-        friend_objects.append(find_or_add_friend(friend))
-    
-    return friend_objects
-    
-
 def friends(request):
     """
     Display the users friends.
     """
-    user = request.user
-    friends = friends_lookup(user)
-    return render_to_response("friends.html", {
-            "friends": friends,
-            "user": user
-        },
-        context_instance=RequestContext(request)
-    )
+    latest = DataPoint.objects.all().order_by('-created_at')[0]
+    return redirect('/data_point/%d' % latest.id)
     
 def data_point_display(request, id):
     ## Display friends for a single data point
     user = request.user
-    friends = DataPoint.objects.get(pk=id).friends.all()
+    dp = DataPoint.objects.get(pk=id)
+    friends = dp.friends.all()
     return render_to_response("friends.html", {
             "friends": friends,
-            "user": user
+            "user": user,
+            "dp": dp
         },
         context_instance=RequestContext(request)
     )
