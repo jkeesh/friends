@@ -14,6 +14,8 @@
       <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.get_profile.id }}/picture?type=square"/></a></p>
       <p>Hello, {{ current_user.first_name|escape }}</p>
 
+	  <a href="/get">Get New Data Point</a>
+
 		<h2><a href="/data">The Data</a></h2>
 		{% include "data_point_list.html" %}
 			

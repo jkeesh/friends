@@ -9,6 +9,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
 import urllib2
 from django.utils import simplejson 
+from viz.data import create_data_point
 
 
 def data(request):
@@ -23,6 +24,12 @@ def data(request):
         },
         context_instance=RequestContext(request)
     )
+
+def get(request):
+    ## Get friends and redirect to data
+    create_data_point(request.user)
+    return redirect('/data')
+    
 
 def friends(request):
     """
@@ -54,7 +61,11 @@ def data_point_display(request, id):
     ## Display friends for a single data point
     user = request.user
     dp = DataPoint.objects.get(pk=id)
-    friends = dp.friends.all()
+    friend_list = dp.friend_list.split(',')
+    friends = Friend.objects.filter(id__in=friend_list)
+    
+    
+    
     return render_to_response("friends.html", {
             "friends": friends,
             "user": user,

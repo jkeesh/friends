@@ -7,10 +7,6 @@ def diff_data_points(old, new):
     """
     old_friends = set(old.friend_list.split(','))
     new_friends = set(new.friend_list.split(','))
-
-    # old_friends = set(old.friends.all())
-    # new_friends = set(new.friends.all())
-    
     lost = old_friends - new_friends
     gained = new_friends - old_friends
     
@@ -47,7 +43,7 @@ def friends_lookup(user):
 
 def create_data_point(user):
     friends = friends_lookup(user)
-    data_point = DataPoint()
+    data_point = DataPoint(user=user)
     data_point.save()
     ## Expand a list into arguments with *list
     ## http://stackoverflow.com/questions/4959499/how-to-add-multiple-objects-to-manytomany-relationship-at-once-in-django
