@@ -1,7 +1,7 @@
 import os
 import sys
 
-sys.path.append('/var/www/friends.thekeesh.com')
+sys.path.append('/home/jkeesh/sites/friends')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 import django.core.handlers.wsgi
