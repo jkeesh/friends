@@ -10,9 +10,13 @@ class Friend(models.Model):
     
     def __unicode__(self):
         return "%s" % self.name
+        
+    def __hash__(self):
+        return self.fbid
     
 class DataPoint(models.Model):
     friends     =   models.ManyToManyField(Friend)
+    friend_list =   models.TextField(default='')
     created_at  =   models.DateTimeField(auto_now_add=True)
 
 class UserProfile(models.Model):

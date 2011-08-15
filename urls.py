@@ -6,13 +6,7 @@ urlpatterns = patterns('',
 
     (r'^admin/', include(admin.site.urls)),
     (r'^friends/?$', 'viz.views.friends'),
+    (r'^data_point/(?P<id>\d+)/?$', 'viz.views.data_point_display'),
+    (r'^data/?$', 'viz.views.data'),
     (r'', 'viz.views.index'),
-    # Example:
-    # (r'^friends/', include('friends.foo.urls')),
-
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
 )

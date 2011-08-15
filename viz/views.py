@@ -9,35 +9,20 @@ from django.contrib.auth import login, authenticate
 
 
 
-def diff_data_points(old, new):
-    old_friends = old.friends.all()
-    new_friends = new.friends.all()
+def data(request):
+    """
+    Handle the diff data view
+    """
+    dp = DataPoint.objects.all().order_by('-created_at')
+    print dp
     
-    lost = []
-    gained = []
-    
-    for friend in old_friends:
-        if friend not in new_friends:
-            lost.append(friend)
-            
-    for friend in new_friends:
-        if friend not in old_friends:
-            gained.append(friend)
-            
-    print "Lost:"
-    print lost
-    
-    print "Gained"
-    print gained
+    return render_to_response("data.html", {
+            "user": request.user,
+            "dp": dp
+        },
+        context_instance=RequestContext(request)
+    )
 
-
-def create_data_point(user):
-    friends = friends_lookup(user)
-    data_point = DataPoint()
-    data_point.save()
-    ## Expand a list into arguments with *list
-    ## http://stackoverflow.com/questions/4959499/how-to-add-multiple-objects-to-manytomany-relationship-at-once-in-django
-    data_point.friends.add(*friends)
 
 def find_or_add_friend(friend_dict):
     try:
@@ -66,9 +51,17 @@ def friends(request):
     """
     user = request.user
     friends = friends_lookup(user)
-    # up = user.get_profile()
-    # graph = facebook.GraphAPI(up.access_token)
-    # friends = graph.get_connections("me", "friends")['data']
+    return render_to_response("friends.html", {
+            "friends": friends,
+            "user": user
+        },
+        context_instance=RequestContext(request)
+    )
+    
+def data_point_display(request, id):
+    ## Display friends for a single data point
+    user = request.user
+    friends = DataPoint.objects.get(pk=id).friends.all()
     return render_to_response("friends.html", {
             "friends": friends,
             "user": user
@@ -83,6 +76,7 @@ def index(request):
                     
     message = 'Ok.'
     user = None
+    data_points = None
     if cookie:
         print 'hi'
         print cookie
@@ -112,6 +106,8 @@ def index(request):
             login(request, user)
         else:
             print "user was none"
+        
+        data_points = DataPoint.objects.all().order_by('-created_at')
     else:
         message = "Error with the user"
     
@@ -119,7 +115,8 @@ def index(request):
     return render_to_response("index.html", {
             "facebook_app_id": settings.FACEBOOK_APP_ID,
             "message": message,
-            "current_user": user
+            "current_user": user,
+            'data_points': data_points
         },
         context_instance=RequestContext(request)
     )

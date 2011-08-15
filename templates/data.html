@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Friends</title>
+  </head>
+  <body>
+	<h1>Data Point</h1>
+
+	{% load data_tags %}
+	{% for data in dp %}
+		<div>
+			<a href="/data_point/{{data.id}}">{{ data.created_at }}</a>
+			<span>#{{data.id}}</span>
+			{% if not forloop.last %}
+			<span>Diff with {% previous_diff data %}</span>
+			{% endif %}
+		<div>
+	{% endfor %}
+
+  </body>
+</html>

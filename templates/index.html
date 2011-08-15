@@ -13,6 +13,9 @@
     {% if current_user %}
       <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.get_profile.id }}/picture?type=square"/></a></p>
       <p>Hello, {{ current_user.first_name|escape }}</p>
+
+		{% include "data_point_list.html" %}
+			
     {% endif %}
 
     <div id="fb-root"></div>
