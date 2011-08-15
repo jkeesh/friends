@@ -15,8 +15,7 @@ def data(request):
     """
     Handle the diff data view
     """
-    dp = DataPoint.objects.all().order_by('-created_at')
-    print dp
+    dp = DataPoint.objects.filter(user=request.user).order_by('-created_at')
     
     return render_to_response("data.html", {
             "user": request.user,
@@ -29,7 +28,7 @@ def friends(request):
     """
     Display the users friends.
     """
-    latest = DataPoint.objects.all().order_by('-created_at')[0]
+    latest = DataPoint.objects.filter(user=request.user).order_by('-created_at')[0]
     return redirect('/data_point/%d' % latest.id)
     
 def friend(request, id):
@@ -102,7 +101,7 @@ def index(request):
         else:
             print "user was none"
         
-        data_points = DataPoint.objects.all().order_by('-created_at')
+        data_points = DataPoint.objects.filter(user=user).order_by('-created_at')
     else:
         message = "Error with the user"
     

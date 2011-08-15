@@ -19,6 +19,7 @@ class DataPoint(models.Model):
     friends     =   models.ManyToManyField(Friend)
     friend_list =   models.TextField(default='')
     created_at  =   models.DateTimeField(auto_now_add=True)
+    user        =   models.ForeignKey(User)
 
 class UserProfile(models.Model):
     data_points =   models.ManyToManyField(DataPoint)

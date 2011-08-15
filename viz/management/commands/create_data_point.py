@@ -6,6 +6,6 @@ class Command(BaseCommand):
     help = 'Create a new data point for your friend list.'
 
     def handle(self, *args, **options):
-        user = User.objects.get(pk=1)
-        create_data_point(user)
+        for user in User.objects.all():
+            create_data_point(user)
         self.stdout.write('Successfully created data point\n')
