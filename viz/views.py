@@ -80,6 +80,9 @@ def friend(request, id):
     if not result: ## Deactivated
         friend.active = False
         friend.save()
+    else:
+        friend.active = True
+        friend.save()
     
     return render_to_response("friend.html", {
             "friend": friend
