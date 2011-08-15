@@ -9,6 +9,8 @@
 		{% if dp %}
 		<h2>#{{dp.id}} - {{dp.created_at}}</h2>
 		{% endif %}
+		
+		<h3>{{ friends|length }} friends</h3>
 	
 		{% for friend in friends %}
 			<div><a href="/friend/{{friend.id}}">{{friend.id}}. {{ friend.name }}</a></div>
