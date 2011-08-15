@@ -9,8 +9,36 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
 import urllib2
 from django.utils import simplejson 
-from viz.data import create_data_point
+from viz.data import create_data_point, diff_data_points
 
+
+def diff(request):
+    ## Diff two points
+    lost = gained = None
+    if 'd1' and 'd2' in request.GET:
+        a = int(request.GET['d1'])
+        b = int(request.GET['d2'])
+        d1 = min(a,b)
+        d2 = max(a,b)
+        print d1
+        print d2
+        d1 = DataPoint.objects.get(pk=d1)
+        d2 = DataPoint.objects.get(pk=d2)
+    
+        lost, gained = diff_data_points(d1, d2)
+        print lost
+        print gained
+    
+    return render_to_response("diff.html", {
+            "user": request.user,
+            "lost": lost,
+            "gained": gained,
+            "d1": d1,
+            "d2": d2
+        },
+        context_instance=RequestContext(request)
+    )
+    
 
 def data(request):
     """

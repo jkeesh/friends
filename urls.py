@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     (r'^data/?$', 'viz.views.data'),
     (r'^friend/(?P<id>\d+)/?$', 'viz.views.friend'),
     (r'^get/?$', 'viz.views.get'),
+    (r'^diff$', 'viz.views.diff'),
     (r'', 'viz.views.index'),
 )

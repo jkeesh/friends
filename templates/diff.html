@@ -1,0 +1,28 @@
+<h1>Diff Between</h1>
+
+<h2>{{d1.id}} - {{d1.created_at}}</h2>
+<h2>{{d2.id}} - {{d2.created_at}}</h2>
+
+
+{% if gained %}
+<div>
+	<div>Gained:</div>
+	{% for friend in gained %}
+	<div>
+		<a href="/friend/{{friend.id}}">{{friend}}</a>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% if lost %}
+<div>
+	<div>Lost: </div>
+	{% for friend in lost %}
+	<div>
+	<a href="/friend/{{friend.id}}">{{friend}}</a>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
