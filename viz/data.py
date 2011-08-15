@@ -1,4 +1,5 @@
 from viz.models import DataPoint, Friend
+import facebook
 
 def diff_data_points(old, new):
     """
