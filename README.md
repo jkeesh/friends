@@ -3,7 +3,16 @@
 
 ## Setup
 
+### Prereqs
+
+    You have django installed https://www.djangoproject.com/
+	You have south installed http://south.aeracode.org/
+	You have the fb python sdk https://github.com/facebook/python-sdk
+	You have django-extensions http://packages.python.org/django-extensions/
+
 ### Create Database
+
+Default is mysql. If you want to use sqlite, just change the django backends settings.
 
     $ mysql
     mysql> create database friends character set utf8;
@@ -21,9 +30,10 @@ Don't create a superuser account.
 
 Make a new facebook app and set the url to be localhost:8000. Create a python file called secrets.py in the top level directory. In here create a dictionary called local containing your facebook app id and facebook secret key.
 
-LOCAL = {}
-LOCAL['FACEBOOK_APP_ID'] =   "#####" 
-LOCAL['FACEBOOK_APP_SECRET'] =   "XXXXXX"
+	## secrets.py
+    LOCAL = {}
+    LOCAL['FACEBOOK_APP_ID'] =   "#####" 
+    LOCAL['FACEBOOK_APP_SECRET'] =   "XXXXXX"
 
 This way you can use your own facebook app.
 
@@ -55,3 +65,6 @@ For me:
 
 
 ### Login!
+
+
+Email me jkeesh@gmail.com with questions
