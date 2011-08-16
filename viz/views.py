@@ -122,6 +122,9 @@ def index(request):
         print cookie
         try:
             up = UserProfile.objects.get(id=cookie['uid'])
+            
+            print up.access_token
+            
             user = up.user
         except UserProfile.DoesNotExist:            
             graph = facebook.GraphAPI(cookie["access_token"])
