@@ -1,2 +1,3 @@
 *.pyc
 backups
+settings.py
