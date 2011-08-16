@@ -2,7 +2,7 @@ import os
 import sys
 
 sys.path.append('/home/jkeesh/sites/friends')
-print >> sys.stderr, "application debug #1"
+print >> sys.stderr, sys.path
 os.environ['DJANGO_SETTINGS_MODULE'] = 'friends.settings'
 
 import django.core.handlers.wsgi
