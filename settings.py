@@ -1,19 +1,26 @@
 # Django settings for friends project.
-import os, sys
+import os, sys, socket
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+if socket.gethostname() == 'jeremy-keeshins-macbook-pro.local':
+    PRODUCTION = False
+    DEBUG = TEMPLATE_DEBUG = True
+    FACEBOOK_APP_ID     =   "118935638204557" 
+    FACEBOOK_APP_SECRET =   "2aaf52f0e693c5e8ebd2425734f41767"
+else:
+    PRODUCTION = True
+    DEBUG = TEMPLATE_DEBUG = True
+    FACEBOOK_APP_ID     =   "238390989532372" 
+    FACEBOOK_APP_SECRET =   "c0dd6c4929e93616490937f0014a6bc5"
+
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
 
-FACEBOOK_APP_ID     =   "118935638204557" 
-FACEBOOK_APP_SECRET =   "2aaf52f0e693c5e8ebd2425734f41767"
 
 VERSION = "0.1.1"
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Jeremy Keeshin', 'jkeesh@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -38,7 +45,7 @@ AUTH_PROFILE_MODULE = 'viz.UserProfile'
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
