@@ -17,6 +17,16 @@ Don't create a superuser account.
 
     ./manage.py migrate
 
+### Setup secrets
+
+Make a new facebook app and set the url to be localhost:8000. Create a python file called secrets.py in the top level directory. In here create a dictionary called local containing your facebook app id and facebook secret key.
+
+LOCAL = {}
+LOCAL['FACEBOOK_APP_ID'] =   "#####" 
+LOCAL['FACEBOOK_APP_SECRET'] =   "XXXXXX"
+
+This way you can use your own facebook app.
+
 
 ### Runserver
 
