@@ -99,7 +99,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'friends.viz',
+    'viz',
     'django_extensions',              # django extensions
     'south',
 )
