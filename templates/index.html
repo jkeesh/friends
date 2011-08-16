@@ -3,6 +3,21 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Friends</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	var clicked = false;
+	$('a[data-get]').click(function(e){
+		if(clicked) {
+			e.preventDefault();
+			return;
+		}
+		clicked = true;
+		$(this).html("ok... getting data");
+		$(this).css('color', '#ccc');
+	});
+});
+</script>
   </head>
   <body>
 	<h1>See Your Friends</h1>
@@ -14,7 +29,7 @@
       <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.get_profile.id }}/picture?type=square"/></a></p>
       <p>Hello, {{ current_user.first_name|escape }}</p>
 
-	  <a href="/get">Get New Data Point</a>
+	  <a href="/get" data-get>Get New Data Point</a>
 
 		<h2><a href="/data">The Data</a></h2>
 		{% include "data_point_list.html" %}
