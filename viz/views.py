@@ -119,7 +119,6 @@ def index(request):
     user = None
     data_points = None
     if cookie:
-        print 'hi'
         print cookie
         try:
             up = UserProfile.objects.get(id=cookie['uid'])
@@ -150,7 +149,7 @@ def index(request):
         
         data_points = DataPoint.objects.filter(user=user).order_by('-created_at')
     else:
-        message = "Error with the user"
+        message = "Log in."
     
     
     return render_to_response("index.html", {

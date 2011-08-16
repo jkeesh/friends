@@ -33,6 +33,10 @@ $(function(){
 
 		<h2><a href="/data">The Data</a></h2>
 		{% include "data_point_list.html" %}
+	{% else %}
+	<h3>Note that this will save your friend lists data</h3>
+	<h3>If you do not want your data saved on this server,</h3><h3>you can setup the django project locally. <a href="https://github.com/jkeesh/friends">Source on github.</a></h3>
+	<h3>-jeremy keeshin</h3>
 			
     {% endif %}
 
