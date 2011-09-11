@@ -20,8 +20,6 @@ def diff(request):
         b = int(request.GET['d2'])
         d1 = min(a,b)
         d2 = max(a,b)
-        print d1
-        print d2
         d1 = DataPoint.objects.get(pk=d1)
         d2 = DataPoint.objects.get(pk=d2)
         
@@ -29,8 +27,6 @@ def diff(request):
             return redirect('/')
     
         lost, gained = diff_data_points(d1, d2)
-        print lost
-        print gained
     
     return render_to_response("diff.html", {
             "user": request.user,
