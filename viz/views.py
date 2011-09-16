@@ -115,17 +115,12 @@ def index(request):
     user = None
     data_points = None
     if cookie:
-        print cookie
         try:
             up = UserProfile.objects.get(id=cookie['uid'])
-            
-            print up.access_token
-            
             user = up.user
         except UserProfile.DoesNotExist:            
             graph = facebook.GraphAPI(cookie["access_token"])
             profile = graph.get_object("me")
-            print profile
             
             try:
                 user = User.objects.get(username=profile['username'])
@@ -144,7 +139,7 @@ def index(request):
         if user is not None:
             login(request, user)
         else:
-            print "user was none"
+            pass
         
         data_points = DataPoint.objects.filter(user=user).order_by('-created_at')
     else:
