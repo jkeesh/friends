@@ -4,23 +4,22 @@ import os, sys, socket
 # Put your fb app settings here
 import secrets
 
-#if socket.gethostname() == 'jeremy-keeshins-macbook-pro.local':
-PRODUCTION = False
+if socket.gethostname() == 'madness':
+    PRODUCTION = True
+    SECRETS_DICT = secrets.PROD
+    print 'live'
+else:
+    PRODUCTION = False
+    SECRETS_DICT = secrets.LOCAL
+    print 'local'
+
 DEBUG = TEMPLATE_DEBUG = True
-SECRETS_DICT = secrets.LOCAL
-print 'local'
-# else:
-#     PRODUCTION = True
-#     DEBUG = TEMPLATE_DEBUG = True
-#     SECRETS_DICT = secrets.PROD
 
 FACEBOOK_APP_ID     =   SECRETS_DICT['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET =   SECRETS_DICT['FACEBOOK_APP_SECRET']
 
-
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
-
 
 VERSION = "0.1.2"
 
@@ -35,7 +34,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'friends',                      # Or path to database file if using sqlite3.
         'USER': 'friend',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'PASSWORD': SECRETS_DICT['dbpassword'],                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
