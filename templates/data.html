@@ -90,17 +90,46 @@
 	<h2>Select two data points and click diff to diff them</h2>
 	<h2><a href="#" data-diff>Diff!</a></h2>
 
+	<style type="text/css">
+		.diff-list{
+			display: inline-block;
+			width: 300px;
+			float: left;
+		}
+
+		.diff-info{
+			width: 350px;
+			float: left;
+		}
+
+		.diff-box{
+			float: left;
+		}
+		.clear{
+			clear: both;
+		}
+		.diff-item{
+			padding: 10px;
+			margin-top: 10px;
+			border-top: 3px dashed #ccc;
+		}
+	</style>
+
 	{% load data_tags %}
 	{% for data in dp %}
-		<div>
-			<a href="#" data-id="{{data.id}}" data-select="true">select</a>
-			<span>#{{data.id}}</span>
-			<a href="/data_point/{{data.id}}">{{ data.created_at }}</a>
+		<div class="diff-item">
+			<div class="diff-info">
+				<a href="#" data-id="{{data.id}}" data-select="true">select</a>
+				<span>#{{data.id}}</span>
+				<a href="/data_point/{{data.id}}">{{ data.created_at }}</a>
+			</div>
 
 			{% if not forloop.last %}
-			<span>Diff {% previous_diff data %}</span>
+			<span>{% previous_diff data %}</span>
 			{% endif %}
-		<div>
+
+		</div>
+		<div class="clear"></div>
 	{% endfor %}
 
   </body>

@@ -1,16 +1,19 @@
-{{ prev.id }}
-{% if lost %}
-<span>Lost: 
-{% for friend in lost %}
-<a href="/friend/{{friend.id}}">{{friend}}</a>
-{% endfor %}
-</span>
-{% endif %}
+<!-- {{ prev.id }} -->
 
-{% if gained %}
-<span>Gained: 
-{% for friend in gained %}
-<a href="/friend/{{friend.id}}">{{friend}}</a>
-{% endfor %}
-</span>
-{% endif %}
+<div class="diff-box">
+	{% if lost %}
+	<div class="diff-list">Lost: 
+	{% for friend in lost %}
+	<a href="/friend/{{friend.id}}">{{friend}}</a>
+	{% endfor %}
+	</div>
+	{% endif %}
+
+	{% if gained %}
+	<div class="diff-list">Gained: 
+	{% for friend in gained %}
+	<a href="/friend/{{friend.id}}">{{friend}}</a>
+	{% endfor %}
+	</div>
+	{% endif %}
+</div>
