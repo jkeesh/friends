@@ -21,10 +21,23 @@ $(function(){
   </head>
   <body>
 	<h1>See Your Friends</h1>
+
+      <div id="auth-status">
+        <div id="auth-loggedout">
+          <a href="#" id="auth-loginlink">Login</a>
+        </div>
+        <div id="auth-loggedin" style="display:none">
+          Hi, <span id="auth-displayname"></span>  
+        (<a href="#" id="auth-logoutlink">logout</a>)
+      </div>
+    </div>
+
+
+
+
+
 	<h2>{{message}}</h2>
 	
-    <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
-
     {% if current_user %}
       <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.get_profile.id }}/picture?type=square"/></a></p>
       <p>Hello, {{ current_user.first_name|escape }}</p>
@@ -34,28 +47,75 @@ $(function(){
 		<h2><a href="/data">The Data</a></h2>
 		{% include "data_point_list.html" %}
 	{% else %}
+   <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
+
 	<h3>Note that this will save your friend lists data</h3>
 	<h3>If you do not want your data saved on this server,</h3><h3>you can setup the django project locally. <a href="https://github.com/jkeesh/friends">Source on github.</a></h3>
 	<h3>-jeremy keeshin</h3>
+
 			
     {% endif %}
 
     <div id="fb-root"></div>
     <script>
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
+
+            // Init the SDK upon load
       window.fbAsyncInit = function() {
-        FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
-                 xfbml: true});
-        FB.Event.subscribe('{% if current_user %}auth.logout{% else %}auth.login{% endif %}', function(response) {
-          window.location.reload();
+        FB.init({
+          appId      : '{{ facebook_app_id }}', // App ID
+          channelUrl : '//'+window.location.hostname+'/channel', // Path to your Channel File
+          status     : true, // check login status
+          cookie     : true, // enable cookies to allow the server to access the session
+          xfbml      : true  // parse XFBML
         });
-      };
-      (function() {
-        var e = document.createElement('script');
-        e.type = 'text/javascript';
-        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-        e.async = true;
-        document.getElementById('fb-root').appendChild(e);
-      }());
+
+        // listen for and handle auth.statusChange events
+        FB.Event.subscribe('auth.statusChange', function(response) {
+          console.log(response);
+
+          if (response.authResponse) {
+            // user has auth'd your app and is logged into Facebook
+            FB.api('/me', function(me){
+              console.log(me);
+              if (me.name) {
+                document.getElementById('auth-displayname').innerHTML = me.name;
+              }
+            })
+            document.getElementById('auth-loggedout').style.display = 'none';
+            document.getElementById('auth-loggedin').style.display = 'block';
+          } else {
+            // user has not auth'd your app, or is not logged into Facebook
+            document.getElementById('auth-loggedout').style.display = 'block';
+            document.getElementById('auth-loggedin').style.display = 'none';
+          }
+        });
+
+        // respond to clicks on the login and logout links
+        document.getElementById('auth-loginlink').addEventListener('click', function(){
+          FB.login();
+        });
+        document.getElementById('auth-logoutlink').addEventListener('click', function(){
+          FB.logout();
+        }); 
+      } 
+
+
+      // window.fbAsyncInit = function() {
+      //   FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
+      //            xfbml: true});
+      //   FB.Event.subscribe('{% if current_user %}auth.logout{% else %}auth.login{% endif %}', function(response) {
+      //     window.location.reload();
+      //   });
+      // };
+
     </script>
   </body>
 </html>

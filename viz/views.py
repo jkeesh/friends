@@ -26,7 +26,10 @@ def diff(request):
         if d1.user != d2.user:
             return redirect('/')
     
-        lost, gained = diff_data_points(d1, d2)
+        # Whether we limit to active users
+        active = 'active' in request.GET
+
+        lost, gained = diff_data_points(d1, d2, active)
     
     return render_to_response("diff.html", {
             "user": request.user,
@@ -73,6 +76,7 @@ def friend(request, id):
     url = urllib2.urlopen('http://graph.facebook.com/%d' % friend.fbid)
     data = url.read()
     result = simplejson.loads(data)
+
     if not result: ## Deactivated
         friend.active = False
         friend.save()
@@ -110,6 +114,7 @@ def data_point_display(request, id):
 def index(request):
     cookie = facebook.get_user_from_cookie(request.COOKIES, 
                     settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
+
                     
     message = 'Ok.'
     user = None
@@ -134,6 +139,9 @@ def index(request):
             
             up = UserProfile(user=user, id=cookie['uid'], access_token=cookie['access_token'])
             up.save()
+
+        up.access_token = cookie['access_token']
+        up.save()
         
         user = authenticate(username=user.username, password=user.username)
         if user is not None:

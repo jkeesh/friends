@@ -4,14 +4,15 @@ import os, sys, socket
 # Put your fb app settings here
 import secrets
 
-if socket.gethostname() == 'jeremy-keeshins-macbook-pro.local':
-    PRODUCTION = False
-    DEBUG = TEMPLATE_DEBUG = True
-    SECRETS_DICT = secrets.LOCAL
-else:
-    PRODUCTION = True
-    DEBUG = TEMPLATE_DEBUG = True
-    SECRETS_DICT = secrets.PROD
+#if socket.gethostname() == 'jeremy-keeshins-macbook-pro.local':
+PRODUCTION = False
+DEBUG = TEMPLATE_DEBUG = True
+SECRETS_DICT = secrets.LOCAL
+print 'local'
+# else:
+#     PRODUCTION = True
+#     DEBUG = TEMPLATE_DEBUG = True
+#     SECRETS_DICT = secrets.PROD
 
 FACEBOOK_APP_ID     =   SECRETS_DICT['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET =   SECRETS_DICT['FACEBOOK_APP_SECRET']

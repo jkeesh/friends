@@ -5,8 +5,8 @@
 
 
 {% if gained %}
-<div>
-	<div>Gained:</div>
+<div style="float: left;">
+	<div>Gained: ({{gained|length}})</div>
 	{% for friend in gained %}
 	<div>
 		<a href="/friend/{{friend.id}}">{{friend}}</a>
@@ -16,8 +16,8 @@
 {% endif %}
 
 {% if lost %}
-<div>
-	<div>Lost: </div>
+<div style="float: left;">
+	<div>Lost: ({{lost|length}})</div>
 	{% for friend in lost %}
 	<div>
 	<a href="/friend/{{friend.id}}">{{friend}}</a>

@@ -1,7 +1,7 @@
 from viz.models import DataPoint, Friend
 import facebook
 
-def diff_data_points(old, new):
+def diff_data_points(old, new, active=False):
     """
     Diff using a string split on the list of friend ids
     """
@@ -12,6 +12,9 @@ def diff_data_points(old, new):
     
     lost = Friend.objects.filter(id__in=lost)
     gained = Friend.objects.filter(id__in=gained)
+
+    if active:
+        lost = lost.filter(active=True)
     
     return lost, gained
     
