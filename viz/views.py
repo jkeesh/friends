@@ -25,6 +25,10 @@ def diff(request):
         
         if d1.user != d2.user:
             return redirect('/')
+
+        if d1.user != request.user:
+            return redirect('/')
+
     
         # Whether we limit to active users
         active = 'active' in request.GET
@@ -115,6 +119,7 @@ def index(request):
     cookie = facebook.get_user_from_cookie(request.COOKIES, 
                     settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
 
+    print cookie
                     
     message = 'Ok.'
     user = None

@@ -22,17 +22,19 @@ $(function(){
   <body>
 	<h1>See Your Friends</h1>
 
-      <div id="auth-status">
+  <!--     <div id="auth-status">
         <div id="auth-loggedout">
           <a href="#" id="auth-loginlink">Login</a>
         </div>
         <div id="auth-loggedin" style="display:none">
           Hi, <span id="auth-displayname"></span>  
         (<a href="#" id="auth-logoutlink">logout</a>)
-      </div>
+        </div>
     </div>
+ -->
 
 
+   <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
 
 
 
@@ -47,7 +49,6 @@ $(function(){
 		<h2><a href="/data">The Data</a></h2>
 		{% include "data_point_list.html" %}
 	{% else %}
-   <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
 
 	<h3>Note that this will save your friend lists data</h3>
 	<h3>If you do not want your data saved on this server,</h3><h3>you can setup the django project locally. <a href="https://github.com/jkeesh/friends">Source on github.</a></h3>
