@@ -37,7 +37,7 @@ def friends_lookup(user):
     graph = facebook.GraphAPI(up.access_token)
     try:
         friends = graph.get_connections("me", "friends")['data']
-    except GraphAPIError:
+    except:
         return None
 
     friend_objects = []
