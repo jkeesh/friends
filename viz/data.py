@@ -35,7 +35,10 @@ def find_or_add_friend(friend_dict):
 def friends_lookup(user):
     up = user.get_profile()
     graph = facebook.GraphAPI(up.access_token)
-    friends = graph.get_connections("me", "friends")['data']
+    try:
+        friends = graph.get_connections("me", "friends")['data']
+    except GraphAPIError:
+        return None
 
     friend_objects = []
     for friend in friends:
@@ -46,6 +49,7 @@ def friends_lookup(user):
 
 def create_data_point(user):
     friends = friends_lookup(user)
-    data_point = DataPoint(user=user)
-    data_point.save()
-    make_friend_list(data_point, friends)
+    if friends:
+        data_point = DataPoint(user=user)
+        data_point.save()
+        make_friend_list(data_point, friends)
