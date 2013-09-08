@@ -1,5 +1,7 @@
 # Django settings for friends project.
-import os, sys, socket
+import os
+import sys
+import socket
 
 # Put your fb app settings here
 import secrets
@@ -15,8 +17,8 @@ else:
 
 DEBUG = TEMPLATE_DEBUG = True
 
-FACEBOOK_APP_ID     =   SECRETS_DICT['FACEBOOK_APP_ID']
-FACEBOOK_APP_SECRET =   SECRETS_DICT['FACEBOOK_APP_SECRET']
+FACEBOOK_APP_ID = SECRETS_DICT['FACEBOOK_APP_ID']
+FACEBOOK_APP_SECRET = SECRETS_DICT['FACEBOOK_APP_SECRET']
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
@@ -31,12 +33,18 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'friends',                      # Or path to database file if using sqlite3.
-        'USER': 'friend',                      # Not used with sqlite3.
-        'PASSWORD': SECRETS_DICT['dbpassword'],                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or
+        # 'oracle'.
+        'ENGINE': 'django.db.backends.mysql',
+        # Or path to database file if using sqlite3.
+        'NAME': 'friends',
+        'USER': 'root',                      # Not used with sqlite3.
+        # Not used with sqlite3.
+        'PASSWORD': SECRETS_DICT['dbpassword'],
+        # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '',
+        # Set to empty string for default. Not used with sqlite3.
+        'PORT': '',
     }
 }
 
@@ -86,7 +94,7 @@ SECRET_KEY = 'o=to-4_tee^hl8b(=a3qlvdz1_g_j1ui__nlzw@c&%vu6b)s4q'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
